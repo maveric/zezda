@@ -1,0 +1,65 @@
+while (($line=fgets($handle))!==false)
+                {
+                    $em = $this->getDoctrine()->getManager();
+                    //Seperate the data by it's delimiter - the ',' char.
+                    $info = explode(",", $line);
+                    //print $info[0].":".$info[1].":".$info[2].":".$info[3].":".$info[4].":".$info[5].":".$info[6]."<br>";
+
+                    /**
+                     * If the stock is unset (first time through script)or if current stock != last stock, update it.
+                     *
+                     * get the latest dated candle for this stock after update.
+                     *
+                     *
+                     */
+                    if ($stock->getTicker() !=  $info[0])
+                        {
+                            $candlesStockTime = microtime(true)-$candleTimeStart;
+                            $stock = $this->stockExistsOrMakeEOD($info[0], $exchange);
+                            $latestCandleForStock = $em->getRepository('ZezdaExchangeBundle:Candle')
+                                ->findLatestCandleForStock($stock);
+                            //print "stock: " .$stock->getTicker(). "<br>";
+
+                        }
+
+                    //If the stock exists, just add this candle to those of that stock
+                    if ($stock)
+                    {
+                        //Make the candles
+                        $this->makeEODCandle($stock, $info, $latestCandleForStock);
+
+                        if ($stock->getTicker() != $testStock->getTicker())
+                        {
+                            $candleTimeStart = microtime(true);
+
+
+                            $start = microtime(true);
+                            if ($numCandlesFlushed != 0)
+                            {
+                                $em->flush();
+                            }
+
+                            $flushTime = microtime(true) - $start;
+                            $totalFlushedCandles+=$numCandlesFlushed;
+                            $totalCheckedCandles+= $numCandlesChecked;
+
+                            /**
+                             * Nice big print statement - shows some nice debugging and timing info.
+                             */
+                            print $stock->getTicker()." flushed  - . - . - mem usage at:". memory_get_usage()." : ".( $numCandlesFlushed). " candles flushed in " . number_format($flushTime, 5) . " seconds.   Making/checking ". ($numCandlesChecked) ." candles took: ".number_format($candlesStockTime, 5)." seconds. This time: ".number_format(($flushTime + $candlesStockTime), 5) .". Total time: ".number_format(($totalExecutionTime += ($flushTime+$candlesStockTime)), 5) ." Avg flshCndl/sec =".number_format(($totalFlushedCandles/$totalExecutionTime), 5) ." | Avg ChkCnld/sec = ".number_format(($totalCheckedCandles/$totalExecutionTime), 5)."<br>";
+                            $numCandlesFlushed =0;
+                            $numCandlesChecked=0;
+
+                            $testStock = $stock;
+                            $em->clear();
+                            unset($em);
+
+                        }
+                    }
+                    //We need to add the stock to the stock table, then do the same as above.
+                    else
+                    {
+                        print "something went wrong";
+
+                    }
+                }

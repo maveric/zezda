@@ -1,0 +1,10 @@
+zezda_alert:
+    resource: "@ZezdaAlertBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+zezda_exchange:
+    resource: "@ZezdaExchangeBundle/Controller/"
+    type:     annotation
+    prefix:   /
+

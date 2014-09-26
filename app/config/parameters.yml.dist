@@ -1,0 +1,15 @@
+parameters:
+    database_driver:   pdo_mysql
+    database_host:     zezda.cnm7x04a2usw.us-east-1.rds.amazonaws.com
+    database_port:     ~
+    database_name:     zezda
+    database_user:     zezda
+    database_password: sch00lsucks
+
+    mailer_transport:  smtp
+    mailer_host:       127.0.0.1
+    mailer_user:       ~
+    mailer_password:   ~
+
+    locale:            en
+    secret:            ThisTokenIsNotSoSecretChangeIt

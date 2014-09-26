@@ -1,0 +1,28 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}ZezdaAlertBundle:forms:index{% endblock %}
+
+{% block body %}
+    <h1>Welcome to the index page</h1>
+    <p>
+        Content says: {% if content is defined %}{{ content }} {% else %} no content {% endif %}
+    <p>
+        Form says:<br>
+        {% if form is defined %}
+            {{ form(form) }}
+        {% else %}
+            No for sent to us :/S
+        {% endif %}
+
+    <p>
+    <ul>
+        <li><a href="{{ path('newsletterEdit') }}">Create new</a></li>
+        {% if newsletters is defined %}
+            {% for newsletter in newsletters %}
+                <li><a href="{{ path('newsletterEdit', {'id':newsletter.id}) }}">{{ newsletter.name }}</a></li>
+            {% endfor %}
+        {% endif %}
+
+    </ul>
+
+{% endblock %}

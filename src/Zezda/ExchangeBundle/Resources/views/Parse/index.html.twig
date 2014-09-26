@@ -1,0 +1,29 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}ZezdaExchangeBundle:Parse:index{% endblock %}
+
+{% block body %}
+    <h1>Welcome to the index page</h1>
+    <p>
+        Content says: {{ content }}
+    <p>
+        Form says:<br>
+        {% if form is defined %}
+            {{ form(form) }}
+        {% endif %}
+    <p>
+   See what google has to say:<br> <a href="{{path('googleCandle', {'ticker':'GOOG'})  }}">GOOG</a><br>
+    <a href="{{path('googleCandle', {'ticker':'AAPL'} ) }}">AAPL</a><br>
+    <a href="{{path('googleCandle', {'ticker':'SYNC'} ) }}">SYNC</a><br>
+    <a href="{{path('googleCandle', {'ticker':'VRNG'} ) }}">VRNG</a><br>
+    <a href="{{path('googleCandle', {'ticker':'GOOG'} ) }}">GOOG</a><br>
+    </p>
+
+    <p>
+    <ul>
+        {% for name in names %}
+            <li><a href="{{ path('dataToDatabase', {'name': name}) }}">{{ name }}</a></li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

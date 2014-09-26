@@ -1,0 +1,64 @@
+charting (not set)
+
+http://www.advsofteng.com/gallery_finance.html
+Need to figure out annotations. Some way to say "buy and sell" without getting clunky.
+
+http://www.fusioncharts.com/download/trials/
+Need to read some more about this.
+
+data
+eoddata.com - historical
+
+daily-
+@todo: Make sure we have up-to-date stock lists. EODdata for that?
+@todo: Write a parser for google data.
+google - doesn't need exchange ticker for us entities!!!
+https://www.google.com/finance/getprices?i=60&p=100d&f=d,o,h,l,c,v&df=cpct&q=GOOG
+
+pre and post markey EOD. google hard limits to 9:30-4.
+
+Parse through this puppy every day at 5, 6, w/e.
+
+Framework:
+Symfony
+
+Methodology
+Work on having two layers (applications) - maybe not,
+	A data sytem (database, candles, alerts, must be fast backend)
+	A presentation layer (make it pretty, presentable, and fast)
+
+
+
+
+TODO:
+
+Backend:
+Have the parser create hourly, daily and weekly candles.
+
+Alert system tracking
+
+
+Frontend: 
+Lets make some pretty candles - figure out charting
+
+
+
+Performance / security: 
+Turn output flushing back off before production
+xdebug SUCKS at performance handling. Turn it on if you need it. Currently disabled in php.ini
+
+
+Goals:
+Feb 21:
+    Have an auto-pull-down method for candles
+    try to have all candles on RDS
+    have an alert-tracking (transaction) system worked out
+
+Feb 28:
+    Have all candles on RDS
+    Parse candles for hour, day and week - all separate tables
+
+
+
+
+	
