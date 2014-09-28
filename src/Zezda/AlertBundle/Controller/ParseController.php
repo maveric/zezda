@@ -23,11 +23,11 @@ class ParseController extends Controller
 {
 	private $smsFilePath = "/home/zezda/projects/zezda/sms.xml";
 	
-	public getSmsFileRPath()
+	public function getSmsFileRPath()
 	{
 		return $this->smsFilePath;
 	}
-	public setSmsFilePath($path)
+	public function setSmsFilePath($path)
 	{
 		$this->smsFilePath = $path;
 	}
@@ -147,8 +147,8 @@ class ParseController extends Controller
 		 */
 		//connect to gmail
 		$hostname = '{imap.gmail.com:993/imap/ssl}[Gmail]/All Mail';
-		$username = 'maveric.all@gmail.com';
-		$password = '@blue14!';
+		$username = $this->container->getParameter('imap.user');
+		$password = $this->container->getParameter('imap.pass');
 		//Entity manager
 		$em = $this->getDoctrine()->getManager();
 

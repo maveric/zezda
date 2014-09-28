@@ -23,5 +23,9 @@ use Zezda\ExchangeBundle\Entity\Candle;
 
 class ParseController extends Controller
 {
+	public function tstAction()
+	{
+		//
+	}
 }
-?>
+
