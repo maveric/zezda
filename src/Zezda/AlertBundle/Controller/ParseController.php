@@ -21,7 +21,16 @@ use Zezda\AlertBundle\Entity\Watchlist;
 
 class ParseController extends Controller
 {
-	public $smsFilePath = "/home/zezda/projects/zezda/sms.xml";
+	private $smsFilePath = "/home/zezda/projects/zezda/sms.xml";
+	
+	public getSmsFileRPath()
+	{
+		return $this->smsFilePath;
+	}
+	public setSmsFilePath($path)
+	{
+		$this->smsFilePath = $path;
+	}
 
 	/**
 	 * @Route("/alert/parse/sms" )
